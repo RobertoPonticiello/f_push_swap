@@ -26,68 +26,36 @@ int	ft_find_value_position(t_node *stack, int value)
 		position++;
 		current = current->next;
 	}
-	return (-1);
+	return (position);
 }
 
 void	ft_push_chunks_to_stack_b(t_node **stack_a, t_node **stack_b,
-		int chunk_size, int total_chunks)
+		int chunk_size, int num_chunks)
 {
-	int	chunk_index;
+	int	current_chunk;
 	int	stack_b_size;
-	int	value_position;
-	int	current_value;
-	int	range_start;
-	int	range_end;
 
-	chunk_index = 0;
-	while (chunk_index < total_chunks)
+	current_chunk = 1;
+	while (*stack_a)
 	{
-		range_start = chunk_index * chunk_size;
-		range_end = range_start + chunk_size - 1;
-		current_value = range_start;
-		while (current_value <= range_end)
+		if ((*stack_a)->num < current_chunk * chunk_size)
 		{
-			value_position = ft_find_value_position(*stack_a, current_value);
-			if (value_position != -1)
+			ft_push_element(stack_b, stack_a);
+			write(1, "pb\n", 3);
+			if (*stack_b && (*stack_b)->num < (current_chunk * chunk_size) - (chunk_size / 2))
 			{
-				if (value_position <= ft_get_list_size(*stack_a) / 2)
-				{
-					while (value_position > 0)
-					{
-						ft_rotate_list_up(stack_a);
-						write(1, "ra\n", 3);
-						value_position--;
-					}
-				}
-				else
-				{
-					while (value_position < ft_get_list_size(*stack_a))
-					{
-						ft_rotate_list_down(stack_a);
-						write(1, "rra\n", 4);
-						value_position++;
-					}
-				}
-				ft_push_element(stack_b, stack_a);
-				write(1, "pb\n", 3);
-				stack_b_size = ft_get_list_size(*stack_b);
-				if (stack_b_size > 1)
-				{
-					if (chunk_index < total_chunks / 2)
-					{
-						ft_rotate_list_up(stack_b);
-						write(1, "rb\n", 3);
-					}
-					else
-					{
-						ft_rotate_list_down(stack_b);
-						write(1, "rrb\n", 4);
-					}
-				}
+				ft_rotate_list_up(stack_b);
+				write(1, "rb\n", 3);
 			}
-			current_value++;
 		}
-		chunk_index++;
+		else
+		{
+			ft_rotate_list_up(stack_a);
+			write(1, "ra\n", 3);
+		}
+		stack_b_size = ft_get_list_size(*stack_b);
+		if (stack_b_size >= current_chunk * chunk_size && current_chunk < num_chunks)
+			current_chunk++;
 	}
 }
 
@@ -114,53 +82,36 @@ void	ft_rotate_stack_b(t_node **stack_b, int rotation_count, int use_reverse)
 
 void	ft_pull_chunks_to_stack_a(t_node **stack_a, t_node **stack_b)
 {
-	int	stack_b_size;
 	int	max_value;
 	int	position;
+	int	stack_b_size;
 
-	stack_b_size = ft_get_list_size(*stack_b);
-	while (stack_b_size > 0)
+	while (*stack_b)
 	{
 		max_value = ft_find_maximum_value(*stack_b);
 		position = ft_find_value_position(*stack_b, max_value);
+		stack_b_size = ft_get_list_size(*stack_b);
 		if (position <= stack_b_size / 2)
-		{
-			while (position > 0)
-			{
-				ft_rotate_list_up(stack_b);
-				write(1, "rb\n", 3);
-				position--;
-			}
-		}
+			ft_rotate_stack_b(stack_b, position, 0);
 		else
-		{
-			while (position < stack_b_size)
-			{
-				ft_rotate_list_down(stack_b);
-				write(1, "rrb\n", 4);
-				position++;
-			}
-		}
+			ft_rotate_stack_b(stack_b, stack_b_size - position, 1);
 		ft_push_element(stack_a, stack_b);
 		write(1, "pa\n", 3);
-		stack_b_size--;
 	}
 }
 
 void	ft_sort_using_chunks(t_node **stack_a, t_node **stack_b)
 {
-	int	list_size;
+	int	total_size;
+	int	num_chunks;
 	int	chunk_size;
-	int	total_chunks;
 
-	list_size = ft_get_list_size(*stack_a);
-	if (list_size <= 100)
-		chunk_size = 20;
+	total_size = ft_get_list_size(*stack_a);
+	if (total_size <= 100)
+		num_chunks = 5;
 	else
-		chunk_size = 50;
-	total_chunks = list_size / chunk_size;
-	if (list_size % chunk_size != 0)
-		total_chunks++;
-	ft_push_chunks_to_stack_b(stack_a, stack_b, chunk_size, total_chunks);
+		num_chunks = 11;
+	chunk_size = total_size / num_chunks + 1;
+	ft_push_chunks_to_stack_b(stack_a, stack_b, chunk_size, num_chunks);
 	ft_pull_chunks_to_stack_a(stack_a, stack_b);
 }

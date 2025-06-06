@@ -32,4 +32,4 @@ fclean: clean
 re: fclean all
 
 bonus: $(NAME)
-	@echo "Bonus compilato con successo"
+	@echo "Bonus compilato"
