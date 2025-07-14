@@ -1,20 +1,83 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   moreutils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rpontici <rpontici@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 20:40:26 by rpontici          #+#    #+#             */
-/*   Updated: 2025/04/29 20:40:38 by rpontici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_push_swap.h"
 
-// Le funzioni duplicate sono state rimosse poiché sono già definite nei loro file specifici:
-// - ft_create_new_node -> ft_node.c
-// - ft_create_substring -> ft_string_utils.c
-// - ft_free_string_array -> ft_string_utils.c
-// - ft_free_linked_list -> ft_node.c
-// - ft_sort_four_or_five_numbers -> ft_sort_small.c
+size_t	ft_strlen(const char *str)
+{
+	size_t	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
+
+static void	sort_array(int *arr, int size)
+{
+	int	i;
+	int	j;
+	int	temp;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (arr[i] > arr[j])
+			{
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static int	*list_to_array(t_node *lst, int size)
+{
+	int	*arr;
+	int	i;
+
+	arr = malloc(sizeof(int) * size);
+	if (!arr)
+		return (NULL);
+	i = 0;
+	while (lst)
+	{
+		arr[i] = lst->num;
+		i++;
+		lst = lst->next;
+	}
+	return (arr);
+}
+
+static void	apply_normalization(t_node *lst, int *arr, int size)
+{
+	int	norm;
+
+	while (lst)
+	{
+		norm = 0;
+		while (norm < size && arr[norm] != lst->num)
+			norm++;
+		lst->num = norm;
+		lst = lst->next;
+	}
+}
+
+void	normalize_list(t_node **a)
+{
+	int	size;
+	int	*arr;
+
+	size = ft_get_list_size(*a);
+	if (size <= 0)
+		return ;
+	arr = list_to_array(*a, size);
+	if (!arr)
+		return ;
+	sort_array(arr, size);
+	apply_normalization(*a, arr, size);
+	free(arr);
+}

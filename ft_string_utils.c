@@ -1,26 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_string_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rpontici <rpontici@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 20:27:11 by rpontici          #+#    #+#             */
-/*   Updated: 2025/04/29 20:27:11 by rpontici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_push_swap.h"
-
-static size_t	ft_strlen(const char *str)
-{
-	size_t	length;
-
-	length = 0;
-	while (str[length])
-		length++;
-	return (length);
-}
 
 static char	*ft_strdup(const char *str)
 {
@@ -80,7 +58,8 @@ char	**ft_split_string_continue(char const *input_string, char delimiter,
 		while (input_string[char_index] == delimiter)
 			char_index++;
 		start_pos = char_index;
-		while (input_string[char_index] && input_string[char_index] != delimiter)
+		while (input_string[char_index]
+			&& input_string[char_index] != delimiter)
 			char_index++;
 		result_array[word_index] = ft_create_substring(input_string, start_pos,
 				char_index - start_pos);

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_parse_args.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rpontici <rpontici@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 20:27:11 by rpontici          #+#    #+#             */
-/*   Updated: 2025/04/29 20:27:11 by rpontici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_push_swap.h"
 
 int	ft_process_split_arguments(char **split_arguments, t_node **stack_a)
@@ -49,7 +37,7 @@ int	ft_validate_and_convert_arguments(char **split_arguments, int *number_array,
 	while (index < argument_count)
 	{
 		if (!ft_is_valid_integer_string(split_arguments[index])
-			|| !ft_convert_string_to_integer_safe(split_arguments[index],
+			|| !ft_constr_safe(split_arguments[index],
 				&number_array[index]))
 			return (0);
 		index++;
@@ -89,7 +77,7 @@ int	ft_validate_direct_arguments(int argc, char **argv, int *number_array)
 	while (index < argc)
 	{
 		if (!ft_is_valid_integer_string(argv[index])
-			|| !ft_convert_string_to_integer_safe(argv[index],
+			|| !ft_constr_safe(argv[index],
 				&number_array[index - 1]))
 			return (0);
 		index++;

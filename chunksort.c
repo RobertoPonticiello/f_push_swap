@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   chunksort.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rpontici <rpontici@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 20:27:11 by rpontici          #+#    #+#             */
-/*   Updated: 2025/04/29 20:27:11 by rpontici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_push_swap.h"
 
 int	ft_find_value_position(t_node *stack, int value)
@@ -30,19 +18,19 @@ int	ft_find_value_position(t_node *stack, int value)
 }
 
 void	ft_push_chunks_to_stack_b(t_node **stack_a, t_node **stack_b,
-		int chunk_size, int num_chunks)
+		int c_s, int num_chunks)
 {
-	int	current_chunk;
+	int	c_c;
 	int	stack_b_size;
 
-	current_chunk = 1;
+	c_c = 1;
 	while (*stack_a)
 	{
-		if ((*stack_a)->num < current_chunk * chunk_size)
+		if ((*stack_a)->num < c_c * c_s)
 		{
 			ft_push_element(stack_b, stack_a);
 			write(1, "pb\n", 3);
-			if (*stack_b && (*stack_b)->num < (current_chunk * chunk_size) - (chunk_size / 2))
+			if (*stack_b && (*stack_b)->num < (c_c * c_s) - (c_s / 2))
 			{
 				ft_rotate_list_up(stack_b);
 				write(1, "rb\n", 3);
@@ -54,8 +42,8 @@ void	ft_push_chunks_to_stack_b(t_node **stack_a, t_node **stack_b,
 			write(1, "ra\n", 3);
 		}
 		stack_b_size = ft_get_list_size(*stack_b);
-		if (stack_b_size >= current_chunk * chunk_size && current_chunk < num_chunks)
-			current_chunk++;
+		if (stack_b_size >= c_c * c_s && c_c < num_chunks)
+			c_c = c_c + 1;
 	}
 }
 
@@ -76,7 +64,7 @@ void	ft_rotate_stack_b(t_node **stack_b, int rotation_count, int use_reverse)
 			ft_rotate_list_up(stack_b);
 			write(1, "rb\n", 3);
 		}
-		index++;
+		index = index + 1;
 	}
 }
 
@@ -107,6 +95,7 @@ void	ft_sort_using_chunks(t_node **stack_a, t_node **stack_b)
 	int	chunk_size;
 
 	total_size = ft_get_list_size(*stack_a);
+	normalize_list(stack_a);
 	if (total_size <= 100)
 		num_chunks = 5;
 	else

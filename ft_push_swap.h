@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_push_swap.h                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rpontici <rpontici@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/01 17:43:16 by rpontici          #+#    #+#             */
-/*   Updated: 2025/04/28 19:30:28 by rpontici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_PUSH_SWAP_H
 # define FT_PUSH_SWAP_H
 
@@ -25,11 +13,24 @@ typedef struct s_node
 	struct s_node	*next;
 }			t_node;
 
-/* Validazione input */
+size_t	ft_strlen(const char *str);
+void	ft_execute_three_sort_logic(t_node **stack_a,
+			int first, int second, int third);
+void	ft_complete_three_sort(t_node **stack_a);
+void	ft_sort_three_numbers(t_node **stack_a);
+void	ft_sort_two_numbers(t_node **stack_a);
+void	ft_handle_case_one(t_node **stack_a);
+void	ft_sort_two_numbers(t_node **stack_a);
+void	ft_handle_case_one(t_node **stack_a);
+void	ft_handle_case_two(t_node **stack_a);
+void	ft_handle_case_three(t_node **stack_a);
+void	ft_handle_case_four(t_node **stack_a);
+void	normalize_list(t_node **a);
 int		ft_is_valid_integer_string(char *input_string);
 int		ft_check_for_duplicate_numbers(int *number_array, int array_size);
-int		ft_convert_string_to_integer_safe(const char *input_string, int *result);
-int		ft_convert_string_to_integer_continue(const char *input_string,
+int		ft_constr_safe(const char *input_string,
+			int *result);
+int		ft_constr_continue(const char *input_string,
 			int string_index, int sign_value, int *result);
 int		ft_is_list_sorted(t_node *list_head);
 
@@ -42,9 +43,10 @@ char	*ft_create_substring(char const *source_string, unsigned int start_pos,
 void	ft_free_string_array(char **string_array);
 
 /* Parsing argomenti */
-int		ft_parse_command_line_arguments(int argc, char **argv, t_node **stack_a);
-int		ft_validate_and_convert_arguments(char **split_arguments, int *number_array,
-			int argument_count);
+int		ft_parse_command_line_arguments(int argc, char **argv,
+			t_node **stack_a);
+int		ft_validate_and_convert_arguments(char **split_arguments,
+			int *number_array, int argument_count);
 int		ft_create_list_from_numbers(int *number_array, int array_size,
 			t_node **stack_a);
 int		ft_process_split_arguments(char **split_arguments, t_node **stack_a);
@@ -53,7 +55,8 @@ int		ft_validate_direct_arguments(int argc, char **argv, int *number_array);
 
 /* Funzioni del main */
 int		ft_initialize_and_check(int argc, char **argv, t_node **stack_a);
-void	ft_select_sort_method(t_node **stack_a, t_node **stack_b, int list_size);
+void	ft_select_sort_method(t_node **stack_a,
+			t_node **stack_b, int list_size);
 
 /* Algoritmi di ordinamento */
 void	ft_sort_two_numbers(t_node **stack_a);
@@ -84,11 +87,12 @@ int		ft_find_minimum_position(t_node *stack_a);
 void	ft_rotate_to_minimum(t_node **stack_a, int min_position, int list_size);
 void	ft_push_chunks_to_stack_b(t_node **stack_a, t_node **stack_b,
 			int chunk_size, int total_chunks);
-void	ft_rotate_stack_b(t_node **stack_b, int rotation_count, int use_reverse);
+void	ft_rotate_stack_b(t_node **stack_b, int rotation_count,
+			int use_reverse);
 void	ft_pull_chunks_to_stack_a(t_node **stack_a, t_node **stack_b);
 
 /* Esistenti */
-int		ft_convert_string_to_integer(const char *input_string);
+int		ft_constr(const char *input_string);
 int		ft_validate_duplicates(int argc, char **argv);
 t_node	**ft_create_number_list(int argc, char **argv);
 

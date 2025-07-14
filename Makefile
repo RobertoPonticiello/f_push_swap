@@ -5,6 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -Ift_printf
 
 SRC = chunksort.c ft_node.c ft_push_swap.c swap.c utils.c \
 	ft_validation.c ft_string_utils.c ft_parse_args.c ft_sort_small.c \
+	ft_sort_small_utils.c \
 	ft_printf/ft_printf.c ft_printf/ft_putchar.c \
 	ft_printf/ft_puthex.c ft_printf/ft_putnbr_u.c \
 	ft_printf/ft_putnbr.c ft_printf/ft_putstr.c \

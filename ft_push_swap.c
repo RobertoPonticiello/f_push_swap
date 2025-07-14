@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rpontici <rpontici@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 20:27:11 by rpontici          #+#    #+#             */
-/*   Updated: 2025/04/29 20:27:11 by rpontici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_push_swap.h"
 
 int	ft_validate_duplicates(int argc, char **argv)
@@ -23,8 +11,8 @@ int	ft_validate_duplicates(int argc, char **argv)
 		compare_index = current_index + 1;
 		while (compare_index < argc)
 		{
-			if (ft_convert_string_to_integer(argv[compare_index])
-				== ft_convert_string_to_integer(argv[current_index]))
+			if (ft_constr(argv[compare_index])
+				== ft_constr(argv[current_index]))
 				return (1);
 			compare_index++;
 		}
@@ -44,7 +32,7 @@ t_node	**ft_create_number_list(int argc, char **argv)
 	index = 0;
 	while (index < argc - 1)
 	{
-		number_list[index] = ft_create_new_node(ft_convert_string_to_integer(argv[index + 1]));
+		number_list[index] = ft_create_new_node(ft_constr(argv[index + 1]));
 		if (!number_list[index])
 		{
 			ft_free_linked_list(*number_list);

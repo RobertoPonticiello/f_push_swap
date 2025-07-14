@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_validation.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rpontici <rpontici@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 20:27:11 by rpontici          #+#    #+#             */
-/*   Updated: 2025/04/29 20:27:11 by rpontici         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_push_swap.h"
 
 int	ft_is_valid_integer_string(char *input_string)
@@ -50,7 +38,7 @@ int	ft_check_for_duplicate_numbers(int *number_array, int array_size)
 	return (0);
 }
 
-int	ft_convert_string_to_integer_safe(const char *input_string, int *result)
+int	ft_constr_safe(const char *input_string, int *result)
 {
 	int	index;
 	int	sign_value;
@@ -66,11 +54,11 @@ int	ft_convert_string_to_integer_safe(const char *input_string, int *result)
 			sign_value = -1;
 		index++;
 	}
-	return (ft_convert_string_to_integer_continue(input_string, index,
+	return (ft_constr_continue(input_string, index,
 			sign_value, result));
 }
 
-int	ft_convert_string_to_integer_continue(const char *input_string,
+int	ft_constr_continue(const char *input_string,
 		int string_index, int sign_value, int *result)
 {
 	long long	number;
